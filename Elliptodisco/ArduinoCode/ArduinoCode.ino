@@ -3,12 +3,7 @@ const int sensorPin = 2;
 const int button1Pin = 3;      
 const int button2Pin = 4;      
 const int button3Pin = 5;      
-const int ledPin = 13;      
-
-unsigned long lastTriggerTime = 0;
-unsigned long interval = 0;
-int prevSensorState = 0;
-
+const int ledPin = 13;         
 
 int motorPins[4] = {8, 9, 10, 11};  
 
@@ -26,6 +21,9 @@ int prevButton2 = -1;
 int prevButton3 = -1;
 int prevSensor  = -1;
 
+// Speed calculation
+unsigned long lastTriggerTime = 0;
+
 void setup() {
   Serial.begin(9600);
 
@@ -35,44 +33,24 @@ void setup() {
   pinMode(button3Pin, INPUT_PULLUP);
   pinMode(ledPin, OUTPUT);
 
-  for (int i = 0; i < 4; i++) {
-    pinMode(motorPins[i], OUTPUT);
-  }
+  for (int i = 0; i < 4; i++) pinMode(motorPins[i], OUTPUT);
 }
 
 void loop() {
 
-  int sensorState = digitalRead(sensorPin);
-
-  // Detect rising edge (magnet appears)
-  if (sensorState == HIGH && prevSensorState == LOW) {
-
-    unsigned long currentTime = micros();
-    interval = currentTime - lastTriggerTime;
-    lastTriggerTime = currentTime;
-
-    Serial.print("SPEED:");
-    Serial.println(interval);
-  }
-
-  prevSensorState = sensorState;
-
-  // LED still follows sensor
+  // --- Sensor ---
+  int sensorState = digitalRead(sensorPin) == HIGH ? 1 : 0;
   digitalWrite(ledPin, sensorState);
 
-  // --- Motor (button 1 only) ---
+  // --- Motor via button 1 ---
   if (digitalRead(button1Pin) == LOW) stepMotor();
   else stopMotor();
 
-  // --- Buttons 2 & 3 ---
+  // --- Button 2 & 3 ---
   int button2State = digitalRead(button2Pin) == LOW ? 1 : 0;
   int button3State = digitalRead(button3Pin) == LOW ? 1 : 0;
 
-  // --- Send only if any relevant input changed ---
-  if (button2State != prevButton2 ||
-      button3State != prevButton3 ||
-      sensorState  != prevSensor) {
-
+  if (button2State != prevButton2 || button3State != prevButton3 || sensorState != prevSensor) {
     Serial.print(button2State);
     Serial.print(",");
     Serial.print(button3State);
@@ -83,20 +61,32 @@ void loop() {
     prevButton3 = button3State;
     prevSensor  = sensorState;
   }
+
+  // --- Speed calculation ---
+  static int prevSensorState = 0;
+
+  // Detect rising edge
+  if (sensorState == 1 && prevSensorState == 0) {
+    unsigned long now = micros();
+    unsigned long interval = now - lastTriggerTime;
+    lastTriggerTime = now;
+
+    // Send to Python
+    Serial.print("SPEED:");
+    Serial.println(interval);
+  }
+
+  prevSensorState = sensorState;
 }
 
-// Stepper
+// Stepper functions
 void stepMotor() {
-  for (int i = 0; i < 4; i++) {
-    digitalWrite(motorPins[i], steps[stepIndex][i]);
-  }
+  for (int i = 0; i < 4; i++) digitalWrite(motorPins[i], steps[stepIndex][i]);
   stepIndex++;
   if (stepIndex >= 4) stepIndex = 0;
-  delay(3);  // motor speed unchanged
+  delay(3);
 }
 
 void stopMotor() {
-  for (int i = 0; i < 4; i++) {
-    digitalWrite(motorPins[i], LOW);
-  }
+  for (int i = 0; i < 4; i++) digitalWrite(motorPins[i], LOW);
 }
