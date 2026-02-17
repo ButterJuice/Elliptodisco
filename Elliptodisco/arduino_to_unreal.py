@@ -3,6 +3,7 @@ import socket
 
 # --- Serial connection ---
 ser = serial.Serial('COM4', 9600, timeout=1)  # change COM4 if needed
+# ser = serial.Serial('COM5', 9600, timeout=1)  # change COM4 if needed
 
 # --- UDP to Unreal ---
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
