@@ -5,7 +5,11 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
-				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/UDP_Test.uasset"
+				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/UDP_Test.uasset",
+				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/Player/BP_RunnerCharBase.uasset",
+				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/Game/BP_RunnerPC.uasset",
+				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Maps/RunnerMap.umap",
+				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/Game/MainCamera.uasset"
 			]
 		}
 	]
