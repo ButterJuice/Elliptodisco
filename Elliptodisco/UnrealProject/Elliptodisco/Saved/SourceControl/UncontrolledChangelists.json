@@ -9,7 +9,8 @@
 				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/Player/BP_RunnerCharBase.uasset",
 				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/Game/BP_RunnerPC.uasset",
 				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Maps/RunnerMap.umap",
-				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/Game/MainCamera.uasset"
+				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/Game/MainCamera.uasset",
+				"F:/romain/travail/PostEtude/Arduino/Elliptodisco/UnrealProject/Elliptodisco/Content/Runner_Game/Blueprints/UDP_arduino.uasset"
 			]
 		}
 	]
